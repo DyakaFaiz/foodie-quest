@@ -1,9 +1,9 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseService {
-  // TODO: Replace with your actual Supabase URL and Anon Key
-  static const String supabaseUrl = '';
-  static const String supabaseAnonKey = '';
+  static final String supabaseUrl = dotenv.env['DB_BASE_URL'] ?? '';
+  static final String supabaseAnonKey = dotenv.env['DB_API_KEY'] ?? '';
 
   static final SupabaseClient client = Supabase.instance.client;
 

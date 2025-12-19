@@ -20,10 +20,11 @@ class Recipe {
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
       id: json['id'] as int,
-      title: json['title'] as String,
+      title: json['title'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      ingredients: json['ingredients'] as String,
-      instructions: json['instruction'] as String,
+      ingredients: json['ingredients'] as String? ?? '',
+      instructions:
+          (json['instructions'] as String?)?.replaceAll('\\n', '\n') ?? '',
       imageUrl: json['image_url'] as String? ?? '',
       rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
     );

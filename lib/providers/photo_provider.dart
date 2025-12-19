@@ -23,7 +23,7 @@ class PhotoProvider with ChangeNotifier {
     } catch (e) {
       debugPrint("Error fetching photos: $e");
     } finally {
-      // _isLoading = false;
+      _isLoading = false;
       notifyListeners();
     }
   }
@@ -34,8 +34,10 @@ class PhotoProvider with ChangeNotifier {
     try {
       final imageUrl = await _service.uploadImage(imageFile);
       if (imageUrl != null) {
-        await _service.savePhotoData(imageUrl, caption);
-        await fetchPhotos(); // Refresh list
+        final newPhoto = await _service.savePhotoData(imageUrl, caption);
+        _photos.insert(0, newPhoto!);
+        _isUploading = false;
+        notifyListeners();
         return true;
       }
       return false;
